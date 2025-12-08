@@ -24,7 +24,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="font-mono text-[clamp(3rem,12vw,10rem)] font-black leading-[0.85] tracking-tighter"
+              className="font-mono text-[clamp(3rem,12vw,10rem)] font-normal leading-[0.85] tracking-tight"
             >
               MACHINA
             </motion.h1>
