@@ -9,11 +9,11 @@ export function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="max-w-4xl"
+          className="max-w-4xl mx-auto text-center"
         >
           <p className="font-mono text-xs tracking-[0.3em] mb-8">001 / WHY MACHINA</p>
           
-          <p className="text-lg leading-relaxed mb-12">
+          <p className="font-sans text-xl md:text-2xl leading-relaxed mb-12">
             Companies working on humanoids, industrial robotics, and neural interfaces are scaling quickly, yet operate in fragmented ecosystems. Existing conferences do not offer a single hub for AI, robotics, and HCI—nor a European location with global reach. MACHINA provides an industry-focused setting where investors can meet key robotics and AI companies, understand their direction, and explore partnerships.
           </p>
           
