@@ -8,9 +8,9 @@ export function HeroSection() {
       <Spotlight size={400} className="z-10" />
       
       <div className="container mx-auto px-6 pt-24 pb-12">
-        <div className="grid lg:grid-cols-2 gap-8 items-center min-h-[80vh]">
+        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-4 items-center min-h-[80vh]">
           {/* Left: Title */}
-          <div className="relative z-10 flex flex-col justify-center">
+          <div className="relative z-10 flex flex-col justify-center lg:pr-8">
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -24,7 +24,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-[clamp(4rem,15vw,12rem)] font-black leading-[0.85] tracking-tighter"
+              className="font-mono text-[clamp(3rem,12vw,10rem)] font-black leading-[0.85] tracking-tighter"
             >
               MACHINA
             </motion.h1>
