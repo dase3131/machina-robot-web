@@ -60,7 +60,7 @@ export function SpeakersSection() {
           <h2 className="text-4xl md:text-5xl font-bold">Industry Leaders</h2>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {speakers.map((speaker, index) => (
             <motion.div
               key={speaker.name}
@@ -68,29 +68,32 @@ export function SpeakersSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group cursor-pointer"
+              className="group cursor-pointer flex gap-4"
             >
-              <div className="relative overflow-hidden mb-4">
-                <div className="aspect-square bg-foreground/5 overflow-hidden">
+              <div className="relative overflow-hidden flex-shrink-0 w-32 h-32">
+                <div className="w-full h-full bg-foreground/5 overflow-hidden">
                   <img
                     src={speaker.image}
                     alt={speaker.name}
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500"
                   />
                 </div>
-                <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/80 transition-all duration-300 flex items-center justify-center p-4">
-                  <p className="font-mono text-xs text-background opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100 text-center leading-relaxed">
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-foreground scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+              </div>
+              
+              <div className="flex flex-col justify-center">
+                <h3 className="font-sans text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
+                  {speaker.name}
+                </h3>
+                <p className="font-mono text-xs opacity-50 mt-1">
+                  {speaker.title}, {speaker.company}
+                </p>
+                <div className="overflow-hidden mt-3">
+                  <p className="font-mono text-xs opacity-0 group-hover:opacity-70 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 leading-relaxed max-w-[200px]">
                     {speaker.bio}
                   </p>
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-foreground scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
               </div>
-              <h3 className="font-sans text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
-                {speaker.name}
-              </h3>
-              <p className="font-mono text-xs opacity-50 mt-1">
-                {speaker.title}, {speaker.company}
-              </p>
             </motion.div>
           ))}
         </div>
