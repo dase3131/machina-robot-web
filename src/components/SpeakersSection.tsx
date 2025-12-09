@@ -1,4 +1,11 @@
 import { motion } from "framer-motion";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const speakers = [
   {
@@ -54,65 +61,66 @@ export function SpeakersSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-16"
+          className="mb-16 flex items-end justify-between"
         >
-          <p className="font-mono text-xs tracking-[0.3em] mb-4">004 / SPEAKERS</p>
-          <h2 className="text-4xl md:text-5xl font-bold">Industry Leaders</h2>
+          <div>
+            <p className="font-mono text-xs tracking-[0.3em] mb-4">004 / SPEAKERS</p>
+            <h2 className="text-4xl md:text-5xl font-bold">Industry Leaders</h2>
+          </div>
+          <p className="font-mono text-xs opacity-50 hidden md:block">
+            + More speakers to be announced
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-          {speakers.map((speaker, index) => (
-            <motion.div
-              key={speaker.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group cursor-pointer relative"
-            >
-              <div className="relative overflow-hidden mb-4">
-                <div className="aspect-square bg-foreground/5 overflow-hidden">
-                  <img
-                    src={speaker.image}
-                    alt={speaker.name}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500"
-                  />
-                </div>
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-foreground scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-              </div>
-              <h3 className="font-sans text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
-                {speaker.name}
-              </h3>
-              <p className="font-mono text-xs opacity-50 mt-1">
-                {speaker.title}, {speaker.company}
-              </p>
-              
-              {/* Floating hover box */}
-              <div className="absolute left-full top-0 ml-4 w-64 bg-foreground text-background p-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-x-2 group-hover:translate-x-0 transition-all duration-300 z-50 pointer-events-none">
-                <div className="absolute left-0 top-6 -translate-x-2 w-0 h-0 border-t-8 border-b-8 border-r-8 border-transparent border-r-foreground" />
-                <p className="font-mono text-xs uppercase tracking-wider opacity-50 mb-2">
-                  {speaker.company}
-                </p>
-                <h4 className="font-sans text-lg font-medium mb-3">
-                  {speaker.name}
-                </h4>
-                <p className="font-mono text-xs leading-relaxed opacity-80">
-                  {speaker.bio}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-12 font-mono text-xs opacity-50"
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          className="w-full"
         >
+          <CarouselContent className="-ml-4">
+            {speakers.map((speaker, index) => (
+              <CarouselItem key={speaker.name} className="pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group cursor-pointer"
+                >
+                  <div className="relative overflow-hidden mb-4">
+                    <div className="aspect-[3/4] bg-foreground/5 overflow-hidden">
+                      <img
+                        src={speaker.image}
+                        alt={speaker.name}
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500"
+                      />
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-foreground scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                  </div>
+                  <h3 className="font-sans text-lg font-medium group-hover:translate-x-1 transition-transform duration-300">
+                    {speaker.name}
+                  </h3>
+                  <p className="font-mono text-xs opacity-50 mt-1">
+                    {speaker.title}, {speaker.company}
+                  </p>
+                  <p className="font-mono text-xs opacity-70 mt-3 leading-relaxed line-clamp-3">
+                    {speaker.bio}
+                  </p>
+                </motion.div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <div className="flex items-center justify-end gap-2 mt-8">
+            <CarouselPrevious className="static translate-y-0 bg-transparent border-foreground/20 hover:bg-foreground hover:text-background" />
+            <CarouselNext className="static translate-y-0 bg-transparent border-foreground/20 hover:bg-foreground hover:text-background" />
+          </div>
+        </Carousel>
+
+        <p className="font-mono text-xs opacity-50 mt-8 md:hidden">
           + More speakers to be announced
-        </motion.p>
+        </p>
       </div>
     </section>
   );
