@@ -60,7 +60,7 @@ export function SpeakersSection() {
           <h2 className="text-4xl md:text-5xl font-bold">Industry Leaders</h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
           {speakers.map((speaker, index) => (
             <motion.div
               key={speaker.name}
@@ -68,10 +68,10 @@ export function SpeakersSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group cursor-pointer flex gap-4"
+              className="group cursor-pointer relative"
             >
-              <div className="relative overflow-hidden flex-shrink-0 w-32 h-32">
-                <div className="w-full h-full bg-foreground/5 overflow-hidden">
+              <div className="relative overflow-hidden mb-4">
+                <div className="aspect-square bg-foreground/5 overflow-hidden">
                   <img
                     src={speaker.image}
                     alt={speaker.name}
@@ -80,19 +80,25 @@ export function SpeakersSection() {
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-foreground scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
               </div>
+              <h3 className="font-sans text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
+                {speaker.name}
+              </h3>
+              <p className="font-mono text-xs opacity-50 mt-1">
+                {speaker.title}, {speaker.company}
+              </p>
               
-              <div className="flex flex-col justify-center">
-                <h3 className="font-sans text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">
-                  {speaker.name}
-                </h3>
-                <p className="font-mono text-xs opacity-50 mt-1">
-                  {speaker.title}, {speaker.company}
+              {/* Floating hover box */}
+              <div className="absolute left-full top-0 ml-4 w-64 bg-foreground text-background p-6 opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-x-2 group-hover:translate-x-0 transition-all duration-300 z-50 pointer-events-none">
+                <div className="absolute left-0 top-6 -translate-x-2 w-0 h-0 border-t-8 border-b-8 border-r-8 border-transparent border-r-foreground" />
+                <p className="font-mono text-xs uppercase tracking-wider opacity-50 mb-2">
+                  {speaker.company}
                 </p>
-                <div className="overflow-hidden mt-3">
-                  <p className="font-mono text-xs opacity-0 group-hover:opacity-70 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 leading-relaxed max-w-[200px]">
-                    {speaker.bio}
-                  </p>
-                </div>
+                <h4 className="font-sans text-lg font-medium mb-3">
+                  {speaker.name}
+                </h4>
+                <p className="font-mono text-xs leading-relaxed opacity-80">
+                  {speaker.bio}
+                </p>
               </div>
             </motion.div>
           ))}
