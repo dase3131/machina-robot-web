@@ -39,8 +39,8 @@ export function ThemesSection() {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <p className="font-mono text-xs tracking-[0.3em] mb-4">002 / THEMES & TRACKS</p>
-          <h2 className="text-4xl md:text-5xl font-bold">Core Focus Areas</h2>
+          <p className="font-mono text-xs tracking-[0.3em] mb-4">002 / AGENDA</p>
+          <h2 className="text-4xl md:text-5xl font-bold">Conference Agenda</h2>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
