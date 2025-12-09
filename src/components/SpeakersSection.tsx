@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const speakers = [
@@ -49,15 +49,49 @@ const speakers = [
 
 export function SpeakersSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const total = speakers.length;
-  const angleStep = 360 / total;
+
+  // Auto-rotate
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % total);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [isPaused, total]);
 
   const rotate = (direction: number) => {
     setActiveIndex((prev) => (prev + direction + total) % total);
   };
 
+  const getCardStyle = (index: number) => {
+    const diff = (index - activeIndex + total) % total;
+    const normalizedDiff = diff > total / 2 ? diff - total : diff;
+    
+    // Position cards in a semi-circle
+    const angle = normalizedDiff * 45; // degrees between cards
+    const radius = 350;
+    const x = Math.sin((angle * Math.PI) / 180) * radius;
+    const z = Math.cos((angle * Math.PI) / 180) * radius - radius;
+    const scale = 1 - Math.abs(normalizedDiff) * 0.12;
+    const opacity = 1 - Math.abs(normalizedDiff) * 0.25;
+    const zIndex = 10 - Math.abs(normalizedDiff);
+
+    return {
+      transform: `translateX(${x}px) translateZ(${z}px) scale(${Math.max(scale, 0.65)})`,
+      opacity: Math.max(opacity, 0.35),
+      zIndex,
+    };
+  };
+
   return (
-    <section id="speakers" className="py-32 border-t border-foreground/10 overflow-hidden">
+    <section 
+      id="speakers" 
+      className="py-32 border-t border-foreground/10 overflow-hidden"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -75,82 +109,88 @@ export function SpeakersSection() {
           </p>
         </motion.div>
 
-        <div className="relative h-[500px] md:h-[600px] flex items-center justify-center perspective-[1000px]">
-          {/* 3D Carousel */}
-          <div 
-            className="relative w-full h-full"
-            style={{ 
-              transformStyle: 'preserve-3d',
-              transform: `rotateY(${-activeIndex * angleStep}deg)`,
-              transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)'
-            }}
-          >
-            {speakers.map((speaker, index) => {
-              const angle = index * angleStep;
-              const radius = 350;
-              
-              return (
-                <div
-                  key={speaker.name}
-                  className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 md:w-56"
-                  style={{
-                    transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
-                    transformStyle: 'preserve-3d',
-                  }}
-                >
-                  <div className="group cursor-pointer bg-background p-4 border border-foreground/10 hover:border-foreground/30 transition-all duration-300">
-                    <div className="relative overflow-hidden mb-4">
-                      <div className="aspect-square bg-foreground/5 overflow-hidden">
-                        <img
-                          src={speaker.image}
-                          alt={speaker.name}
-                          className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                        />
-                      </div>
-                    </div>
-                    <h3 className="font-sans text-sm font-medium">
-                      {speaker.name}
-                    </h3>
-                    <p className="font-mono text-xs opacity-50 mt-1">
-                      {speaker.title}, {speaker.company}
-                    </p>
+        {/* Carousel container */}
+        <div 
+          className="relative h-[380px] md:h-[420px] flex items-center justify-center"
+          style={{ perspective: '1200px' }}
+        >
+          <div className="relative w-full flex items-center justify-center" style={{ transformStyle: 'preserve-3d' }}>
+            {speakers.map((speaker, index) => (
+              <motion.div
+                key={speaker.name}
+                className="absolute w-40 md:w-48 cursor-pointer"
+                animate={getCardStyle(index)}
+                transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                onClick={() => setActiveIndex(index)}
+              >
+                <div className="bg-background border border-foreground/10 hover:border-foreground/30 transition-colors duration-300 p-3">
+                  <div className="aspect-square bg-foreground/5 overflow-hidden mb-3">
+                    <img
+                      src={speaker.image}
+                      alt={speaker.name}
+                      className={`w-full h-full object-cover transition-all duration-500 ${
+                        index === activeIndex ? 'grayscale-0' : 'grayscale'
+                      }`}
+                    />
                   </div>
+                  <h3 className="font-sans text-sm font-medium truncate">
+                    {speaker.name}
+                  </h3>
+                  <p className="font-mono text-xs opacity-50 mt-1 truncate">
+                    {speaker.title}, {speaker.company}
+                  </p>
                 </div>
-              );
-            })}
+              </motion.div>
+            ))}
           </div>
 
           {/* Navigation */}
           <button
             onClick={() => rotate(-1)}
-            className="absolute left-4 md:left-12 top-1/2 -translate-y-1/2 z-10 w-12 h-12 border border-foreground/20 flex items-center justify-center hover:bg-foreground hover:text-background transition-all duration-300"
+            className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 border border-foreground/20 flex items-center justify-center hover:bg-foreground hover:text-background transition-all duration-300"
           >
-            <ChevronLeft className="w-5 h-5" />
+            <ChevronLeft className="w-4 h-4" />
           </button>
           <button
             onClick={() => rotate(1)}
-            className="absolute right-4 md:right-12 top-1/2 -translate-y-1/2 z-10 w-12 h-12 border border-foreground/20 flex items-center justify-center hover:bg-foreground hover:text-background transition-all duration-300"
+            className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 border border-foreground/20 flex items-center justify-center hover:bg-foreground hover:text-background transition-all duration-300"
           >
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-4 h-4" />
           </button>
         </div>
 
         {/* Active speaker info */}
-        <motion.div 
-          key={activeIndex}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="text-center mt-8"
-        >
-          <h3 className="font-sans text-2xl font-medium">{speakers[activeIndex].name}</h3>
-          <p className="font-mono text-sm opacity-50 mt-2">
-            {speakers[activeIndex].title}, {speakers[activeIndex].company}
-          </p>
-          <p className="font-mono text-xs opacity-70 mt-4 max-w-md mx-auto leading-relaxed">
-            {speakers[activeIndex].bio}
-          </p>
-        </motion.div>
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={activeIndex}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            className="text-center mt-4"
+          >
+            <h3 className="font-sans text-xl md:text-2xl font-medium">{speakers[activeIndex].name}</h3>
+            <p className="font-mono text-sm opacity-50 mt-2">
+              {speakers[activeIndex].title}, {speakers[activeIndex].company}
+            </p>
+            <p className="font-mono text-xs opacity-70 mt-4 max-w-lg mx-auto leading-relaxed">
+              {speakers[activeIndex].bio}
+            </p>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Progress dots */}
+        <div className="flex items-center justify-center gap-2 mt-6">
+          {speakers.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setActiveIndex(index)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                index === activeIndex ? 'bg-foreground w-6' : 'bg-foreground/30 w-2'
+              }`}
+            />
+          ))}
+        </div>
 
         <p className="font-mono text-xs opacity-50 mt-8 text-center md:hidden">
           + More speakers to be announced
