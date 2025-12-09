@@ -43,24 +43,60 @@ export function ThemesSection() {
           <h2 className="text-4xl md:text-5xl font-bold">Core Focus Areas</h2>
         </motion.div>
 
-        <div className="space-y-0">
-          {themes.map((theme, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          {/* Large card - spans 2 cols and 2 rows */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="md:col-span-2 md:row-span-2 border border-foreground/20 p-8 group hover:bg-foreground hover:text-background transition-colors duration-300 flex flex-col justify-between min-h-[320px]"
+          >
+            <span className="font-mono text-6xl md:text-8xl opacity-10 group-hover:opacity-20 transition-opacity">01</span>
+            <div>
+              <h3 className="text-2xl md:text-3xl font-semibold mb-3">
+                {themes[0].title}
+              </h3>
+              <p className="text-sm opacity-60 group-hover:opacity-80">{themes[0].description}</p>
+            </div>
+          </motion.div>
+
+          {/* Medium cards */}
+          {themes.slice(1, 3).map((theme, index) => (
             <motion.div
               key={theme.number}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="border-t border-foreground/20 py-8 group hover:bg-foreground/5 transition-colors px-4 -mx-4"
+              transition={{ duration: 0.5, delay: (index + 1) * 0.1 }}
+              className="md:col-span-2 border border-foreground/20 p-6 group hover:bg-foreground hover:text-background transition-colors duration-300 flex flex-col justify-between min-h-[160px]"
             >
-              <div className="flex items-start gap-8">
-                <span className="font-mono text-xs opacity-40">{theme.number}</span>
-                <div className="flex-1">
-                  <h3 className="text-xl md:text-2xl font-semibold mb-2 group-hover:translate-x-2 transition-transform">
-                    {theme.title}
-                  </h3>
-                  <p className="text-sm opacity-60">{theme.description}</p>
-                </div>
+              <span className="font-mono text-4xl opacity-10 group-hover:opacity-20 transition-opacity">{theme.number}</span>
+              <div>
+                <h3 className="text-xl font-semibold mb-2">
+                  {theme.title}
+                </h3>
+                <p className="text-sm opacity-60 group-hover:opacity-80">{theme.description}</p>
+              </div>
+            </motion.div>
+          ))}
+
+          {/* Small cards */}
+          {themes.slice(3).map((theme, index) => (
+            <motion.div
+              key={theme.number}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: (index + 3) * 0.1 }}
+              className="md:col-span-2 border border-foreground/20 p-6 group hover:bg-foreground hover:text-background transition-colors duration-300 flex flex-col justify-between min-h-[140px]"
+            >
+              <span className="font-mono text-3xl opacity-10 group-hover:opacity-20 transition-opacity">{theme.number}</span>
+              <div>
+                <h3 className="text-lg font-semibold mb-2">
+                  {theme.title}
+                </h3>
+                <p className="text-sm opacity-60 group-hover:opacity-80">{theme.description}</p>
               </div>
             </motion.div>
           ))}
