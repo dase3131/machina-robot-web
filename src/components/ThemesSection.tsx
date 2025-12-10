@@ -1,34 +1,67 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 const themes = [
   {
     number: "01",
-    title: "Humanoid Robotics & Embodied Intelligence",
-    description: "The future of bipedal systems and physical AI agents"
+    title: "HUMANOID",
+    description: "Explore the future of bipedal systems and physical AI agents that will reshape human-robot interaction.",
+    topics: [
+      "Next-gen bipedal locomotion",
+      "Dexterous manipulation systems",
+      "Human-robot collaboration frameworks",
+      "Embodied intelligence architectures"
+    ]
   },
   {
     number: "02", 
-    title: "Industrial Physical Intelligence",
-    description: "Automation at scale for manufacturing and logistics"
+    title: "INDUSTRIAL",
+    description: "Automation at scale for manufacturing and logistics, driving the next industrial revolution.",
+    topics: [
+      "Factory automation pipelines",
+      "Warehouse robotics at scale",
+      "Quality control AI systems",
+      "Predictive maintenance"
+    ]
   },
   {
     number: "03",
-    title: "BCI / HCI",
-    description: "Brain-computer and human-computer interfaces redefining interaction"
+    title: "INTERFACE",
+    description: "Brain-computer and human-computer interfaces redefining how we interact with machines.",
+    topics: [
+      "Neural interface breakthroughs",
+      "Gesture and voice control",
+      "AR/VR integration",
+      "Accessibility innovations"
+    ]
   },
   {
     number: "04",
-    title: "AI × Robotics Integration",
-    description: "Merging foundation models with physical systems"
+    title: "INTEGRATION",
+    description: "Merging foundation models with physical systems to create truly intelligent machines.",
+    topics: [
+      "LLM-powered robotics",
+      "Vision-language-action models",
+      "Sim-to-real transfer",
+      "Multi-modal perception"
+    ]
   },
   {
     number: "05",
-    title: "Safety, Ethics & Policy",
-    description: "Deployment frameworks and responsible development"
+    title: "ETHICS",
+    description: "Deployment frameworks and responsible development for safe AI-robotics systems.",
+    topics: [
+      "Safety certification standards",
+      "Regulatory landscapes",
+      "Liability frameworks",
+      "Workforce transition"
+    ]
   }
 ];
 
 export function ThemesSection() {
+  const [activeTheme, setActiveTheme] = useState(0);
+
   return (
     <section id="themes" className="py-32 border-t border-foreground/10">
       <div className="container mx-auto px-6">
@@ -43,63 +76,65 @@ export function ThemesSection() {
           <h2 className="text-4xl md:text-5xl font-bold">Conference Agenda</h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          {/* Large card - spans 2 cols and 2 rows */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="md:col-span-2 md:row-span-2 border border-foreground/20 p-8 group hover:bg-foreground hover:text-background transition-colors duration-300 flex flex-col justify-between min-h-[320px]"
-          >
-            <span className="font-mono text-6xl md:text-8xl opacity-10 group-hover:opacity-20 transition-opacity">01</span>
-            <div>
-              <h3 className="text-2xl md:text-3xl font-semibold mb-3">
-                {themes[0].title}
-              </h3>
-              <p className="text-sm opacity-60 group-hover:opacity-80">{themes[0].description}</p>
-            </div>
-          </motion.div>
-
-          {/* Medium cards */}
-          {themes.slice(1, 3).map((theme, index) => (
-            <motion.div
-              key={theme.number}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: (index + 1) * 0.1 }}
-              className="md:col-span-2 border border-foreground/20 p-6 group hover:bg-foreground hover:text-background transition-colors duration-300 flex flex-col justify-between min-h-[160px]"
-            >
-              <span className="font-mono text-4xl opacity-10 group-hover:opacity-20 transition-opacity">{theme.number}</span>
-              <div>
-                <h3 className="text-xl font-semibold mb-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+          {/* Left side - Theme titles */}
+          <div className="space-y-2">
+            {themes.map((theme, index) => (
+              <motion.button
+                key={theme.number}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                onClick={() => setActiveTheme(index)}
+                className={`w-full text-left py-4 border-b border-foreground/10 group transition-all duration-300 flex items-baseline gap-4 ${
+                  activeTheme === index ? 'opacity-100' : 'opacity-40 hover:opacity-70'
+                }`}
+              >
+                <span className="font-mono text-xs">/{theme.number}</span>
+                <span 
+                  className={`text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight transition-colors duration-300 ${
+                    activeTheme === index ? 'text-foreground' : 'text-foreground'
+                  }`}
+                >
                   {theme.title}
-                </h3>
-                <p className="text-sm opacity-60 group-hover:opacity-80">{theme.description}</p>
-              </div>
-            </motion.div>
-          ))}
+                </span>
+              </motion.button>
+            ))}
+          </div>
 
-          {/* Small cards */}
-          {themes.slice(3).map((theme, index) => (
-            <motion.div
-              key={theme.number}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: (index + 3) * 0.1 }}
-              className="md:col-span-2 border border-foreground/20 p-6 group hover:bg-foreground hover:text-background transition-colors duration-300 flex flex-col justify-between min-h-[140px]"
-            >
-              <span className="font-mono text-3xl opacity-10 group-hover:opacity-20 transition-opacity">{theme.number}</span>
-              <div>
-                <h3 className="text-lg font-semibold mb-2">
-                  {theme.title}
-                </h3>
-                <p className="text-sm opacity-60 group-hover:opacity-80">{theme.description}</p>
-              </div>
-            </motion.div>
-          ))}
+          {/* Right side - Description panel */}
+          <div className="lg:pl-8 lg:border-l border-foreground/10 min-h-[400px] flex items-start pt-4">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTheme}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-8"
+              >
+                <p className="text-lg md:text-xl leading-relaxed">
+                  <span className="font-semibold">{themes[activeTheme].description.split(' ').slice(0, 4).join(' ')}</span>
+                  {' '}{themes[activeTheme].description.split(' ').slice(4).join(' ')}
+                </p>
+                
+                <div className="space-y-4">
+                  {themes[activeTheme].topics.map((topic, index) => (
+                    <motion.div
+                      key={topic}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                      className="py-3 border-b border-foreground/10 font-mono text-sm"
+                    >
+                      {topic}
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>
