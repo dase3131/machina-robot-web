@@ -26,17 +26,6 @@ const themes = [
   },
   {
     number: "03",
-    title: "INTERFACE",
-    description: "Brain-computer and human-computer interfaces redefining how we interact with machines.",
-    topics: [
-      "Neural interface breakthroughs",
-      "Gesture and voice control",
-      "AR/VR integration",
-      "Accessibility innovations"
-    ]
-  },
-  {
-    number: "04",
     title: "INTEGRATION",
     description: "Merging foundation models with physical systems to create truly intelligent machines.",
     topics: [
@@ -47,7 +36,7 @@ const themes = [
     ]
   },
   {
-    number: "05",
+    number: "04",
     title: "ETHICS",
     description: "Deployment frameworks and responsible development for safe AI-robotics systems.",
     topics: [
