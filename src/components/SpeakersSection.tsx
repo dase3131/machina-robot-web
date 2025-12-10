@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 const speakers = [
   { name: "Speaker 1", title: "CEO", company: "Robotics Company" },
@@ -42,31 +43,40 @@ export function SpeakersSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
-              className="group"
+              className="group bg-foreground/5 rounded-lg overflow-hidden"
             >
               {/* Image Container */}
-              <div className="relative aspect-[3/4] bg-foreground/10 overflow-hidden mb-4">
-                {/* Placeholder blurred silhouette */}
-                <div className="absolute inset-0 bg-gradient-to-b from-foreground/20 to-foreground/40 blur-sm" />
+              <div className="relative aspect-square overflow-hidden">
+                {/* Blurred placeholder background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-foreground/30 via-foreground/20 to-foreground/40" />
+                
+                {/* Blurred head silhouette */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-foreground/20 blur-xl" />
+                  <div className="w-28 h-28 md:w-36 md:h-36 rounded-full bg-foreground/30 blur-2xl translate-y-[-10%]" />
                 </div>
                 
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-foreground/60 flex items-center justify-center p-4">
-                  <p className="font-mono text-xs md:text-sm text-background text-center tracking-wide">
+                {/* Overlay with text */}
+                <div className="absolute inset-0 bg-foreground/50 backdrop-blur-sm flex items-center justify-center p-4">
+                  <p className="font-mono text-xs md:text-sm text-background text-center tracking-wide font-medium">
                     To be announced soon
                   </p>
                 </div>
               </div>
 
               {/* Speaker Info */}
-              <h3 className="font-sans text-sm md:text-base font-medium">
-                {speaker.name}
-              </h3>
-              <p className="font-mono text-xs opacity-50 mt-1">
-                {speaker.title}, {speaker.company}
-              </p>
+              <div className="p-4">
+                <h3 className="font-sans text-sm md:text-base font-semibold">
+                  {speaker.name}
+                </h3>
+                <p className="font-mono text-xs opacity-60 mt-1 leading-relaxed">
+                  {speaker.title}, {speaker.company}
+                </p>
+                
+                {/* Arrow button */}
+                <button className="mt-4 w-8 h-8 rounded-full bg-foreground flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <ArrowRight className="w-4 h-4 text-background" />
+                </button>
+              </div>
             </motion.div>
           ))}
         </div>
