@@ -17,7 +17,7 @@ export function HackathonSection() {
           </h2>
           
           <p className="text-xl leading-relaxed mb-12 max-w-2xl">
-            A 24–36 hour competition for robotics, AI, BCI, and HCI builders to prototype physical intelligent systems.
+            A 24–36 hour competition for robotics and AI builders to prototype physical intelligent systems.
           </p>
 
           <div className="grid md:grid-cols-4 gap-8 pt-8 border-t border-foreground/20">
