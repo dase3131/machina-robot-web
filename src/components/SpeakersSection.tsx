@@ -25,7 +25,7 @@ export function SpeakersSection() {
           transition={{ duration: 0.8 }}
           className="mb-12"
         >
-          <p className="font-mono text-sm text-foreground/60">MACHINA 2026 Speakers</p>
+          <h2 className="font-mono text-4xl md:text-5xl lg:text-6xl tracking-tight">MACHINA 2026 Speakers</h2>
         </motion.div>
 
         {/* Speakers Grid */}
