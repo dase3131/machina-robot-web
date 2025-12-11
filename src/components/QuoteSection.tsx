@@ -5,6 +5,19 @@ export function QuoteSection() {
   return (
     <section className="py-32 border-t border-foreground/10">
       <div className="container mx-auto px-6">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <h2 className="font-mono text-4xl md:text-5xl lg:text-6xl tracking-tight">
+            BROUGHT TO YOU BY <span className="font-bold">RAISE SUMMIT</span>
+          </h2>
+        </motion.div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left - Image */}
           <motion.div
