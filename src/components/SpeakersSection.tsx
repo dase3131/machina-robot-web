@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 const speakers = [
   { name: "Speaker 1", title: "CEO", company: "Robotics Company" },
@@ -16,26 +16,20 @@ const speakers = [
 
 export function SpeakersSection() {
   return (
-    <section id="speakers" className="py-32 border-t border-foreground/10">
+    <section id="speakers" className="py-32 bg-foreground text-background">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-16 flex items-end justify-between"
+          className="mb-12"
         >
-          <div>
-            <p className="font-mono text-xs tracking-[0.3em] mb-4">004 / SPEAKERS</p>
-            <h2 className="text-4xl md:text-5xl font-bold">Industry Leaders</h2>
-          </div>
-          <p className="font-mono text-xs opacity-50 hidden md:block">
-            + More speakers to be announced
-          </p>
+          <p className="font-mono text-sm text-background/60">MACHINA 2026 Speakers</p>
         </motion.div>
 
         {/* Speakers Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {speakers.map((speaker, index) => (
             <motion.div
               key={index}
@@ -43,47 +37,46 @@ export function SpeakersSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
-              className="group bg-foreground/5 rounded-lg overflow-hidden"
+              className="group"
             >
-              {/* Image Container */}
-              <div className="relative aspect-square overflow-hidden">
-                {/* Blurred placeholder background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-foreground/30 via-foreground/20 to-foreground/40" />
-                
-                {/* Blurred head silhouette */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-28 h-28 md:w-36 md:h-36 rounded-full bg-foreground/30 blur-2xl translate-y-[-10%]" />
+              {/* Card */}
+              <div className="bg-background/10 rounded-2xl overflow-hidden border border-background/10">
+                {/* Image Container */}
+                <div className="relative aspect-square overflow-hidden">
+                  {/* Gradient background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-background/20 via-background/10 to-background/30" />
+                  
+                  {/* Blurred head silhouette */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-background/20 blur-2xl translate-y-[-5%]" />
+                  </div>
+                  
+                  {/* Overlay with text */}
+                  <div className="absolute inset-0 bg-foreground/40 backdrop-blur-sm flex items-center justify-center p-4">
+                    <p className="font-mono text-[10px] md:text-xs text-background/80 text-center tracking-wide">
+                      To be announced soon
+                    </p>
+                  </div>
+
+                  {/* Arrow button - bottom left */}
+                  <button className="absolute bottom-3 left-3 w-8 h-8 rounded-full bg-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <ArrowUpRight className="w-4 h-4 text-primary-foreground" />
+                  </button>
                 </div>
-                
-                {/* Overlay with text */}
-                <div className="absolute inset-0 bg-foreground/50 backdrop-blur-sm flex items-center justify-center p-4">
-                  <p className="font-mono text-xs md:text-sm text-background text-center tracking-wide font-medium">
-                    To be announced soon
+
+                {/* Speaker Info */}
+                <div className="p-4">
+                  <h3 className="font-sans text-sm font-semibold text-background">
+                    {speaker.name}
+                  </h3>
+                  <p className="font-mono text-[10px] text-background/60 mt-1 leading-relaxed">
+                    {speaker.title}, {speaker.company}
                   </p>
                 </div>
-              </div>
-
-              {/* Speaker Info */}
-              <div className="p-4">
-                <h3 className="font-sans text-sm md:text-base font-semibold">
-                  {speaker.name}
-                </h3>
-                <p className="font-mono text-xs opacity-60 mt-1 leading-relaxed">
-                  {speaker.title}, {speaker.company}
-                </p>
-                
-                {/* Arrow button */}
-                <button className="mt-4 w-8 h-8 rounded-full bg-foreground flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <ArrowRight className="w-4 h-4 text-background" />
-                </button>
               </div>
             </motion.div>
           ))}
         </div>
-
-        <p className="font-mono text-xs opacity-50 mt-8 text-center md:hidden">
-          + More speakers to be announced
-        </p>
       </div>
     </section>
   );
