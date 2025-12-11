@@ -16,7 +16,7 @@ const speakers = [
 
 export function SpeakersSection() {
   return (
-    <section id="speakers" className="py-32 bg-foreground text-background">
+    <section id="speakers" className="py-32 border-t border-foreground/10">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -25,7 +25,7 @@ export function SpeakersSection() {
           transition={{ duration: 0.8 }}
           className="mb-12"
         >
-          <p className="font-mono text-sm text-background/60">MACHINA 2026 Speakers</p>
+          <p className="font-mono text-sm text-foreground/60">MACHINA 2026 Speakers</p>
         </motion.div>
 
         {/* Speakers Grid */}
@@ -40,7 +40,7 @@ export function SpeakersSection() {
               className="group"
             >
               {/* Card */}
-              <div className="bg-background/10 rounded-2xl overflow-hidden border border-background/10">
+              <div className="bg-foreground rounded-2xl overflow-hidden">
                 {/* Image Container */}
                 <div className="relative aspect-square overflow-hidden">
                   {/* Gradient background */}
