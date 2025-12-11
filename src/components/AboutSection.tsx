@@ -14,7 +14,7 @@ export function AboutSection() {
           <p className="font-mono text-xs tracking-[0.3em] mb-8">001 / WHY MACHINA</p>
           
           <p className="font-sans text-xl md:text-2xl leading-relaxed mb-12">
-            Companies working on humanoids and industrial robotics are scaling quickly, yet operate in fragmented ecosystems. Existing conferences do not offer a single hub for AI and robotics—nor a European location with global reach. MACHINA provides an industry-focused setting where investors can meet key robotics and AI companies, understand their direction, and explore partnerships.
+            Companies working on humanoids and industrial robotics are scaling quickly, yet operate in disconnected industries. Existing conferences do not offer a single hub for AI and robotics—nor a European location with global reach. MACHINA provides an industry-focused setting where investors can meet key robotics and AI companies, understand their direction, and explore partnerships.
           </p>
           
           <div className="grid grid-cols-2 gap-8">
