@@ -14,7 +14,7 @@ export function AboutSection() {
           <p className="font-mono text-xs tracking-[0.3em] mb-8">001 / WHY MACHINA</p>
           
           <p className="font-sans text-xl md:text-2xl leading-relaxed mb-12">
-            MACHINA is built for the people shaping the next generation of robotics and physical AI. We bring together founders, investors, and industry leaders who are defining what intelligent machines will become—creating a space where bold ideas meet real capital, and where partnerships form between those building the future.
+            MACHINA is built for the people shaping the next generation of robotics and physical AI. We bring together founders, investors, and industry leaders who are defining what intelligent machines will become. A space where bold ideas meet real capital and lasting partnerships take shape.
           </p>
           
           <div className="grid grid-cols-2 gap-8">
