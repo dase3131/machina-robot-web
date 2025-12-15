@@ -114,3 +114,37 @@
     text-wrap: balance;
   }
 }
+
+/* Logos Carousel Animation */
+.logos-carousel {
+  overflow: hidden;
+  width: 100%;
+}
+
+.logos-container {
+  display: flex;
+  animation: scroll 30s linear infinite;
+}
+
+.logos-track {
+  display: flex;
+  gap: 4rem;
+  padding-right: 4rem;
+  flex-shrink: 0;
+}
+
+.logos-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

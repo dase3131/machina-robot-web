@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import cognitionLogo from "@/assets/logos/cognition.svg";
 import nvidiaLogo from "@/assets/logos/nvidia.avif";
 import anthropicLogo from "@/assets/logos/anthropic.avif";
@@ -23,47 +22,42 @@ const companies = [
 
 export function CompanyBanner() {
   return (
-    <section className="py-16 overflow-hidden">
+    <section className="py-12 md:py-16 overflow-hidden">
       <div className="container mx-auto px-6 mb-8">
-        <h2 className="font-sans text-2xl md:text-3xl">
-          They already <span className="italic">trust us</span>
+        <h2 className="font-sans text-xl md:text-2xl lg:text-3xl">
+          Trusted by the <span className="italic opacity-60">industry pioneers</span>
         </h2>
       </div>
       
-      <div className="relative">
-        {/* Gradient overlays for fade effect */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
-        
-        {/* Scrolling container */}
-        <motion.div
-          className="flex gap-16 items-center"
-          animate={{
-            x: ["0%", "-50%"],
-          }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 30,
-              ease: "linear",
-            },
-          }}
-        >
-          {/* Double the logos for seamless loop */}
-          {[...companies, ...companies].map((company, index) => (
-            <div
-              key={`${company.name}-${index}`}
-              className="flex-shrink-0 h-12 flex items-center justify-center"
-            >
-              <img
-                src={company.logo}
-                alt={company.name}
-                className="h-8 md:h-10 w-auto object-contain invert opacity-80 hover:opacity-100 transition-opacity"
-              />
-            </div>
-          ))}
-        </motion.div>
+      <div className="logos-carousel">
+        <div className="logos-container">
+          {/* First set of logos */}
+          <div className="logos-track">
+            {companies.map((company) => (
+              <div key={company.name} className="logos-block">
+                <img
+                  src={company.logo}
+                  alt={`${company.name} logo`}
+                  loading="lazy"
+                  className="h-6 md:h-8 w-auto object-contain invert opacity-80"
+                />
+              </div>
+            ))}
+          </div>
+          {/* Duplicate for seamless loop */}
+          <div className="logos-track">
+            {companies.map((company) => (
+              <div key={`${company.name}-dup`} className="logos-block">
+                <img
+                  src={company.logo}
+                  alt={`${company.name} logo`}
+                  loading="lazy"
+                  className="h-6 md:h-8 w-auto object-contain invert opacity-80"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
