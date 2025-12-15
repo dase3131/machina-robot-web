@@ -25,7 +25,7 @@ export function CompanyBanner() {
     <section className="py-12 md:py-16 overflow-hidden">
       <div className="container mx-auto px-6 mb-8">
         <h2 className="font-sans text-xl md:text-2xl lg:text-3xl">
-          They trust <span className="italic opacity-60">Raise</span>
+          Meet the companies who trust <span className="italic opacity-60">RAISE</span>
         </h2>
       </div>
       
