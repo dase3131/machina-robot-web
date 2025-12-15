@@ -20,14 +20,18 @@ export function HeroSection() {
               PARIS • JULY 7, 2025
             </motion.p>
             
-            <motion.h1
+            <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="font-mono text-[clamp(3rem,12vw,10rem)] font-normal leading-[0.85] tracking-tight"
             >
-              MACHINA
-            </motion.h1>
+              <h1 className="font-mono text-[clamp(3rem,12vw,10rem)] font-normal leading-[0.85] tracking-tight">
+                MACHINA
+              </h1>
+              <p className="font-mono text-sm md:text-base tracking-wider mt-2 opacity-70">
+                by Raise Summit
+              </p>
+            </motion.div>
             
             <motion.p
               initial={{ opacity: 0, y: 20 }}
