@@ -4,7 +4,7 @@ import { CompanyBanner } from "@/components/CompanyBanner";
 import { AboutSection } from "@/components/AboutSection";
 import { ThemesSection } from "@/components/ThemesSection";
 import { QuoteSection } from "@/components/QuoteSection";
-import { SpeakersSection } from "@/components/SpeakersSection";
+import { HallOfFameSection } from "@/components/HallOfFameSection";
 import { FooterSection } from "@/components/FooterSection";
 
 const Index = () => {
@@ -16,7 +16,7 @@ const Index = () => {
       <AboutSection />
       <ThemesSection />
       <QuoteSection />
-      <SpeakersSection />
+      <HallOfFameSection />
       <FooterSection />
     </main>
   );
