@@ -46,7 +46,7 @@ const speakers = [
 
 export function HallOfFameSection() {
   return (
-    <section id="speakers" className="py-24 md:py-32 bg-foreground text-background">
+    <section id="speakers" className="py-24 md:py-32 border-t border-foreground/10">
       <div className="container mx-auto px-6">
         {/* Header */}
         <motion.div
@@ -56,10 +56,10 @@ export function HallOfFameSection() {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <h2 className="text-4xl md:text-6xl lg:text-7xl mb-2">
-            <span className="italic font-serif">RAISE Hall of Fame</span>
+          <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl mb-2">
+            <span className="italic">RAISE Hall of Fame</span>
           </h2>
-          <p className="font-mono text-3xl md:text-5xl lg:text-6xl opacity-60">
+          <p className="font-mono text-2xl md:text-4xl lg:text-5xl opacity-40">
             2025 <span className="mx-2">|</span> Speakers
           </p>
         </motion.div>
@@ -76,7 +76,7 @@ export function HallOfFameSection() {
               className="group"
             >
               {/* Card */}
-              <div className="bg-background/10 rounded-2xl overflow-hidden border border-background/10 hover:border-background/20 transition-all duration-300">
+              <div className="bg-foreground rounded-2xl overflow-hidden">
                 {/* Image Container */}
                 <div className="relative aspect-square overflow-hidden">
                   <img
