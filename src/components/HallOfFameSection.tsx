@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
-const speakers = [
+const raiseSpeakers = [
   {
     name: "Eric Schmidt",
     title: "Executive Chairman & CEO of Relativity Space,",
@@ -44,11 +44,19 @@ const speakers = [
   },
 ];
 
+const machinaTBASpeakers = [
+  { id: 1 },
+  { id: 2 },
+  { id: 3 },
+  { id: 4 },
+  { id: 5 },
+];
+
 export function HallOfFameSection() {
   return (
-    <section id="speakers" className="py-24 md:py-32 border-t border-foreground/10">
+    <section id="speakers" className="py-24 md:py-32 grid-pattern">
       <div className="container mx-auto px-6">
-        {/* Header */}
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -56,68 +64,126 @@ export function HallOfFameSection() {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <h2 className="font-sans text-4xl md:text-5xl lg:text-6xl mb-2">
-            <span className="italic">RAISE Hall of Fame</span>
+          <p className="section-number mb-4">005 / SPEAKERS</p>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight leading-none">
+            HALL OF FAME
           </h2>
-          <p className="font-mono text-2xl md:text-4xl lg:text-5xl opacity-40">
-            2025 <span className="mx-2">|</span> Speakers
-          </p>
         </motion.div>
 
-        {/* Speakers Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          {speakers.map((speaker, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group"
-            >
-              {/* Card */}
-              <div className="bg-foreground rounded-2xl overflow-hidden">
-                {/* Image Container */}
-                <div className="relative aspect-square overflow-hidden">
-                  <img
-                    src={speaker.image}
-                    alt={speaker.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  {/* Company Logo Badge */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
+        {/* RAISE 2025 Speakers */}
+        <div className="mb-20">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mb-8"
+          >
+            <h3 className="font-mono text-sm tracking-wider text-muted-foreground uppercase">
+              RAISE 2025 Speakers
+            </h3>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {raiseSpeakers.map((speaker, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group"
+              >
+                <div className="bg-foreground overflow-hidden">
+                  {/* Image Container */}
+                  <div className="relative aspect-square overflow-hidden">
                     <img
-                      src={speaker.logo}
-                      alt={speaker.company}
-                      className="h-8 md:h-10 object-contain"
+                      src={speaker.image}
+                      alt={speaker.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
+                    {/* Company Logo Badge */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
+                      <img
+                        src={speaker.logo}
+                        alt={speaker.company}
+                        className="h-8 md:h-10 object-contain"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Speaker Info */}
+                  <div className="p-5">
+                    <h3 className="font-sans text-lg font-semibold text-background mb-1">
+                      {speaker.name}
+                    </h3>
+                    <p className="font-mono text-xs text-background/70 leading-relaxed">
+                      {speaker.title}
+                    </p>
+                    {speaker.subtitle && (
+                      <p className="font-mono text-xs text-background/70">
+                        {speaker.subtitle}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Arrow Button */}
+                  <div className="px-5 pb-5">
+                    <button className="w-10 h-10 bg-accent flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <ArrowRight className="w-5 h-5 text-foreground" />
+                    </button>
                   </div>
                 </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
 
-                {/* Speaker Info */}
-                <div className="p-5">
-                  <h3 className="font-sans text-lg font-semibold text-background mb-1">
-                    {speaker.name}
-                  </h3>
-                  <p className="font-sans text-sm text-background/70 leading-relaxed">
-                    {speaker.title}
-                  </p>
-                  {speaker.subtitle && (
-                    <p className="font-sans text-sm text-background/70">
-                      {speaker.subtitle}
-                    </p>
-                  )}
-                </div>
+        {/* MACHINA Speakers - TBA */}
+        <div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mb-8"
+          >
+            <h3 className="font-mono text-sm tracking-wider text-muted-foreground uppercase">
+              MACHINA 2025 Speakers — Coming Soon
+            </h3>
+          </motion.div>
 
-                {/* Arrow Button */}
-                <div className="px-5 pb-5">
-                  <button className="w-10 h-10 rounded-full bg-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <ArrowRight className="w-5 h-5 text-primary-foreground" />
-                  </button>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {machinaTBASpeakers.map((speaker, index) => (
+              <motion.div
+                key={speaker.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <div className="bg-foreground overflow-hidden">
+                  {/* TBA Placeholder */}
+                  <div className="aspect-square bg-foreground flex items-center justify-center">
+                    <span className="font-mono text-2xl text-background/30 tracking-widest">
+                      TBA
+                    </span>
+                  </div>
+
+                  {/* Placeholder Info */}
+                  <div className="p-5">
+                    <div className="h-4 w-24 bg-background/10 mb-2"></div>
+                    <div className="h-3 w-32 bg-background/5"></div>
+                  </div>
+
+                  {/* Arrow Button */}
+                  <div className="px-5 pb-5">
+                    <div className="w-10 h-10 bg-background/10 flex items-center justify-center">
+                      <ArrowRight className="w-5 h-5 text-background/20" />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
