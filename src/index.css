@@ -6,75 +6,79 @@
 
 @layer base {
   :root {
-    /* MACHINA - Cream & Black Editorial */
-    --background: 45 30% 96%; /* slightly more white */
-    --foreground: 0 0% 0%; /* pure black */
+    /* MACHINA - Off-white/ivory with deep navy and violet accent */
+    --background: 40 30% 96%; /* warm off-white/ivory */
+    --foreground: 220 30% 10%; /* deep navy/near-black */
 
-    --card: 45 33% 95%;
-    --card-foreground: 0 0% 0%;
+    --card: 40 25% 94%;
+    --card-foreground: 220 30% 10%;
 
-    --popover: 45 33% 95%;
-    --popover-foreground: 0 0% 0%;
+    --popover: 40 25% 94%;
+    --popover-foreground: 220 30% 10%;
 
-    --primary: 0 0% 0%;
-    --primary-foreground: 45 33% 95%;
+    --primary: 220 30% 10%;
+    --primary-foreground: 40 30% 96%;
 
-    --secondary: 45 20% 90%;
-    --secondary-foreground: 0 0% 0%;
+    --secondary: 40 15% 92%;
+    --secondary-foreground: 220 30% 10%;
 
-    --muted: 45 15% 88%;
-    --muted-foreground: 0 0% 30%;
+    --muted: 40 10% 90%;
+    --muted-foreground: 220 20% 40%;
 
-    --accent: 45 20% 88%;
-    --accent-foreground: 0 0% 0%;
+    --accent: 260 30% 85%; /* pale violet/lavender */
+    --accent-foreground: 220 30% 10%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 45 33% 95%;
+    --destructive-foreground: 40 30% 96%;
 
-    --border: 0 0% 0%;
-    --input: 0 0% 0%;
-    --ring: 0 0% 0%;
+    --border: 220 20% 85%;
+    --input: 220 20% 85%;
+    --ring: 260 30% 70%;
 
-    --radius: 0px;
+    --radius: 4px;
 
-    --sidebar-background: 45 33% 95%;
-    --sidebar-foreground: 0 0% 0%;
-    --sidebar-primary: 0 0% 0%;
-    --sidebar-primary-foreground: 45 33% 95%;
-    --sidebar-accent: 45 20% 90%;
-    --sidebar-accent-foreground: 0 0% 0%;
-    --sidebar-border: 0 0% 0%;
-    --sidebar-ring: 0 0% 0%;
+    --sidebar-background: 40 30% 96%;
+    --sidebar-foreground: 220 30% 10%;
+    --sidebar-primary: 220 30% 10%;
+    --sidebar-primary-foreground: 40 30% 96%;
+    --sidebar-accent: 260 30% 85%;
+    --sidebar-accent-foreground: 220 30% 10%;
+    --sidebar-border: 220 20% 85%;
+    --sidebar-ring: 260 30% 70%;
+
+    /* Grid pattern color */
+    --grid-color: 220 10% 85%;
   }
 
   .dark {
-    --background: 45 33% 95%;
-    --foreground: 0 0% 0%;
-    --card: 45 33% 95%;
-    --card-foreground: 0 0% 0%;
-    --popover: 45 33% 95%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 0 0% 0%;
-    --primary-foreground: 45 33% 95%;
-    --secondary: 45 20% 90%;
-    --secondary-foreground: 0 0% 0%;
-    --muted: 45 15% 88%;
-    --muted-foreground: 0 0% 30%;
-    --accent: 45 20% 88%;
-    --accent-foreground: 0 0% 0%;
+    --background: 40 30% 96%;
+    --foreground: 220 30% 10%;
+    --card: 40 25% 94%;
+    --card-foreground: 220 30% 10%;
+    --popover: 40 25% 94%;
+    --popover-foreground: 220 30% 10%;
+    --primary: 220 30% 10%;
+    --primary-foreground: 40 30% 96%;
+    --secondary: 40 15% 92%;
+    --secondary-foreground: 220 30% 10%;
+    --muted: 40 10% 90%;
+    --muted-foreground: 220 20% 40%;
+    --accent: 260 30% 85%;
+    --accent-foreground: 220 30% 10%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 45 33% 95%;
-    --border: 0 0% 0%;
-    --input: 0 0% 0%;
-    --ring: 0 0% 0%;
-    --sidebar-background: 45 33% 95%;
-    --sidebar-foreground: 0 0% 0%;
-    --sidebar-primary: 0 0% 0%;
-    --sidebar-primary-foreground: 45 33% 95%;
-    --sidebar-accent: 45 20% 90%;
-    --sidebar-accent-foreground: 0 0% 0%;
-    --sidebar-border: 0 0% 0%;
-    --sidebar-ring: 0 0% 0%;
+    --destructive-foreground: 40 30% 96%;
+    --border: 220 20% 85%;
+    --input: 220 20% 85%;
+    --ring: 260 30% 70%;
+    --sidebar-background: 40 30% 96%;
+    --sidebar-foreground: 220 30% 10%;
+    --sidebar-primary: 220 30% 10%;
+    --sidebar-primary-foreground: 40 30% 96%;
+    --sidebar-accent: 260 30% 85%;
+    --sidebar-accent-foreground: 220 30% 10%;
+    --sidebar-border: 220 20% 85%;
+    --sidebar-ring: 260 30% 70%;
+    --grid-color: 220 10% 85%;
   }
 }
 
@@ -106,6 +110,28 @@
   @keyframes rotation {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+  }
+
+  /* Grid pattern background */
+  .grid-pattern {
+    background-image: 
+      linear-gradient(hsl(var(--grid-color)) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--grid-color)) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Section number styling */
+  .section-number {
+    @apply font-mono text-sm tracking-wider text-muted-foreground;
+  }
+
+  /* Button variants */
+  .btn-primary {
+    @apply bg-foreground text-background px-6 py-3 font-medium transition-all hover:opacity-90;
+  }
+
+  .btn-outline {
+    @apply border border-foreground bg-transparent text-foreground px-6 py-3 font-medium transition-all hover:bg-foreground hover:text-background;
   }
 }
 
