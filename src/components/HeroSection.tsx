@@ -79,10 +79,7 @@ export function HeroSection() {
             transition={{ duration: 1, delay: 0.4 }}
             className="relative h-[500px] lg:h-[700px]"
           >
-            <SplineScene 
-              scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-              className="w-full h-full"
-            />
+            <SplineRobot className="w-full h-full" />
           </motion.div>
         </div>
       </div>
