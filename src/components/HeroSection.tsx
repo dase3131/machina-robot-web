@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { SplineScene } from "@/components/ui/splite";
+import SplineRobot from "@/components/SplineRobot";
 import { Spotlight } from "@/components/ui/spotlight";
 
 export function HeroSection() {
