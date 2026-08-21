@@ -72,8 +72,6 @@ export default function SplineRobot({ className }: SplineRobotProps) {
   useEffect(() => {
     if (!loaded) return;
 
-    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-
     const tick = () => {
       rafRef.current = requestAnimationFrame(tick);
       const rig = rigRef.current;
@@ -82,7 +80,6 @@ export default function SplineRobot({ className }: SplineRobotProps) {
 
       const t = (performance.now() - startRef.current) / 1000;
       const mode = stateRef.current;
-      const ease = 0.12;
 
       // Target offsets (radians) relative to rest pose
       const target = new Map<SplineObj, Pose>();
@@ -131,12 +128,16 @@ export default function SplineRobot({ className }: SplineRobotProps) {
         set(rig.body, 0, 0, 0);
       }
 
+      // Absolute assignment with our own eased progress so Spline's
+      // internal updates can't fight the pose.
+      const p = Math.min(1, t / 1.2);
+      const k = 1 - Math.pow(1 - p, 3);
       target.forEach((off, o) => {
         const b = base.get(o);
         if (!b) return;
-        o.rotation.x = lerp(o.rotation.x, b.x + off.x, ease);
-        o.rotation.y = lerp(o.rotation.y, b.y + off.y, ease);
-        o.rotation.z = lerp(o.rotation.z, b.z + off.z, ease);
+        o.rotation.x = b.x + off.x * k;
+        o.rotation.y = b.y + off.y * k;
+        o.rotation.z = b.z + off.z * k;
       });
     };
 
