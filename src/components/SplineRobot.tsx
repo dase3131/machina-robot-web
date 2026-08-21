@@ -100,27 +100,27 @@ export default function SplineRobot({ className }: SplineRobotProps) {
         set(rig.head, Math.sin(t * 0.8) * 3 * DEG, Math.sin(t * 0.5) * 6 * DEG, 0);
         set(rig.body, 0, Math.sin(t * 0.4) * 2 * DEG, 0);
       } else if (mode === "wave") {
-        // Right arm up, forearm + hand oscillating side to side
+        // One arm raised, forearm + hand swinging side to side
         const swing = Math.sin(t * 6);
         rig.arms.forEach((a, i) => {
-          if (i === 0) set(a, 0, 0, -110 * DEG);
-          else set(a, 0, 0, 4 * DEG);
+          if (i === 1) set(a, 0, 0, 120 * DEG);
+          else set(a, 0, 0, 0);
         });
         rig.forearms.forEach((f, i) => {
-          if (i === 0) set(f, 0, 0, -35 * DEG + swing * 22 * DEG);
+          if (i === 1) set(f, 0, 0, swing * 25 * DEG);
           else set(f, 0, 0, 0);
         });
         rig.hands.forEach((h, i) => {
-          if (i === 0) set(h, 0, 0, swing * 18 * DEG);
+          if (i === 1) set(h, 0, 0, swing * 20 * DEG);
           else set(h, 0, 0, 0);
         });
         set(rig.head, 0, -6 * DEG, 0);
         set(rig.body, 0, 0, 0);
       } else {
-        // holdLogo: both arms raised, steady, tiny float
+        // holdLogo: both arms raised overhead, steady, tiny float
         const float = Math.sin(t * 1.6) * 2 * DEG;
-        rig.arms.forEach((a, i) => set(a, 0, 0, (i === 0 ? -125 : 125) * DEG + float));
-        rig.forearms.forEach((f, i) => set(f, 0, 0, (i === 0 ? -25 : 25) * DEG));
+        rig.arms.forEach((a) => set(a, 0, 0, 130 * DEG + float));
+        rig.forearms.forEach((f) => set(f, 0, 0, 20 * DEG));
         rig.hands.forEach((h) => set(h, 0, 0, 0));
         set(rig.head, -4 * DEG, 0, 0);
         set(rig.body, 0, 0, 0);
