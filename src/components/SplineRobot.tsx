@@ -42,6 +42,7 @@ export default function SplineRobot({ className }: SplineRobotProps) {
 
   const onLoad = useCallback((spline: SplineObj) => {
     splineRef.current = spline;
+    (window as any).__spline = spline;
 
     const objs: SplineObj[] = spline.getAllObjects();
     const pick = (re: RegExp) => objs.filter((o) => re.test(o.name));
