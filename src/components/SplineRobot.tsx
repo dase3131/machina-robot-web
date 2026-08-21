@@ -42,7 +42,6 @@ export default function SplineRobot({ className }: SplineRobotProps) {
 
   const onLoad = useCallback((spline: SplineObj) => {
     splineRef.current = spline;
-    (window as any).__spline = spline;
 
     const objs: SplineObj[] = spline.getAllObjects();
     const pick = (re: RegExp) => objs.filter((o) => re.test(o.name));
@@ -65,7 +64,6 @@ export default function SplineRobot({ className }: SplineRobotProps) {
       });
     baseRef.current = base;
 
-    console.log("RIG", rig.arms.length, rig.forearms.length, rig.hands.length, objs.map((o:any)=>o.name).join(","));
     setLoaded(true);
   }, []);
 
@@ -118,11 +116,11 @@ export default function SplineRobot({ className }: SplineRobotProps) {
         const float = Math.sin(t * 1.6) * 2 * DEG;
         rig.arms.forEach((a, i) => {
           const dir = i === 0 ? 1 : -1;
-          set(a, -100 * DEG, 0, dir * (60 * DEG + float));
+          set(a, 0, 0, dir * (130 * DEG + float));
         });
         rig.forearms.forEach((f, i) => {
           const dir = i === 0 ? 1 : -1;
-          set(f, -20 * DEG, 0, 0);
+          set(f, 0, 0, dir * 20 * DEG);
         });
         rig.hands.forEach((h) => set(h, 0, 0, 0));
         set(rig.head, -4 * DEG, 0, 0);
