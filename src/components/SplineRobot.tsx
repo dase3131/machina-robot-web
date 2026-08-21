@@ -34,13 +34,11 @@ export default function SplineRobot({ className }: SplineRobotProps) {
   const splineRef = useRef<SplineObj>(null);
   const rigRef = useRef<Rig | null>(null);
   const baseRef = useRef<Map<SplineObj, Pose>>(new Map());
-  const stateRef = useRef<RobotState>("idle");
+  const stateRef = useRef<RobotState>("holdLogo");
   const rafRef = useRef<number>();
   const startRef = useRef<number>(0);
 
   const [loaded, setLoaded] = useState(false);
-  const [state, setState] = useState<RobotState>("idle");
-  const [showLogo, setShowLogo] = useState(false);
 
   const onLoad = useCallback((spline: SplineObj) => {
     splineRef.current = spline;
@@ -73,8 +71,6 @@ export default function SplineRobot({ className }: SplineRobotProps) {
   useEffect(() => {
     if (!loaded) return;
 
-    const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-
     const tick = () => {
       rafRef.current = requestAnimationFrame(tick);
       const rig = rigRef.current;
@@ -83,7 +79,6 @@ export default function SplineRobot({ className }: SplineRobotProps) {
 
       const t = (performance.now() - startRef.current) / 1000;
       const mode = stateRef.current;
-      const ease = 0.12;
 
       // Target offsets (radians) relative to rest pose
       const target = new Map<SplineObj, Pose>();
@@ -119,19 +114,29 @@ export default function SplineRobot({ className }: SplineRobotProps) {
       } else {
         // holdLogo: both arms raised overhead, steady, tiny float
         const float = Math.sin(t * 1.6) * 2 * DEG;
-        rig.arms.forEach((a) => set(a, 0, 0, 130 * DEG + float));
-        rig.forearms.forEach((f) => set(f, 0, 0, 20 * DEG));
+        rig.arms.forEach((a, i) => {
+          const dir = i === 0 ? 1 : -1;
+          set(a, 0, 0, dir * (130 * DEG + float));
+        });
+        rig.forearms.forEach((f, i) => {
+          const dir = i === 0 ? 1 : -1;
+          set(f, 0, 0, dir * 20 * DEG);
+        });
         rig.hands.forEach((h) => set(h, 0, 0, 0));
         set(rig.head, -4 * DEG, 0, 0);
         set(rig.body, 0, 0, 0);
       }
 
+      // Absolute assignment with our own eased progress so Spline's
+      // internal updates can't fight the pose.
+      const p = Math.min(1, t / 1.2);
+      const k = 1 - Math.pow(1 - p, 3);
       target.forEach((off, o) => {
         const b = base.get(o);
         if (!b) return;
-        o.rotation.x = lerp(o.rotation.x, b.x + off.x, ease);
-        o.rotation.y = lerp(o.rotation.y, b.y + off.y, ease);
-        o.rotation.z = lerp(o.rotation.z, b.z + off.z, ease);
+        o.rotation.x = b.x + off.x * k;
+        o.rotation.y = b.y + off.y * k;
+        o.rotation.z = b.z + off.z * k;
       });
     };
 
@@ -141,31 +146,6 @@ export default function SplineRobot({ className }: SplineRobotProps) {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, [loaded]);
-
-  const trigger = useCallback((next: RobotState) => {
-    stateRef.current = next;
-    startRef.current = performance.now();
-    setState(next);
-    setShowLogo(next === "holdLogo");
-  }, []);
-
-  // Keyboard shortcuts: I = idle, W = wave, L = hold logo
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      const k = e.key.toLowerCase();
-      if (k === "i") trigger("idle");
-      if (k === "w") trigger("wave");
-      if (k === "l") trigger("holdLogo");
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [trigger]);
-
-  const buttons: { id: RobotState; label: string }[] = [
-    { id: "idle", label: "Idle" },
-    { id: "wave", label: "Wave" },
-    { id: "holdLogo", label: "Hold Logo" },
-  ];
 
   return (
     <div className={`relative ${className ?? ""}`}>
@@ -178,29 +158,12 @@ export default function SplineRobot({ className }: SplineRobotProps) {
       )}
 
       {/* MACHINA sign held above the robot's hands */}
-      {showLogo && (
-        <div className="pointer-events-none absolute left-1/2 top-[14%] -translate-x-1/2 animate-fade-in border-2 border-foreground bg-background px-8 py-4">
-          <span className="font-mono text-2xl tracking-[0.4em] md:text-3xl">MACHINA</span>
+      {loaded && (
+        <div className="pointer-events-none absolute left-1/2 top-[10%] z-20 -translate-x-1/2 animate-fade-in border-2 border-foreground bg-background px-4 py-2 md:px-6 md:py-3">
+          <span className="whitespace-nowrap font-mono text-base tracking-[0.35em] md:text-2xl">MACHINA</span>
         </div>
       )}
 
-      {loaded && (
-        <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2">
-          {buttons.map(({ id, label }) => (
-            <button
-              key={id}
-              onClick={() => trigger(id)}
-              className={`border px-5 py-2 font-mono text-[11px] uppercase tracking-[0.2em] transition-colors ${
-                state === id
-                  ? "border-foreground bg-foreground text-background"
-                  : "border-foreground/30 text-foreground/60 hover:border-foreground hover:text-foreground"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
