@@ -3,8 +3,8 @@ import { useRef, useState, useCallback, useEffect } from "react";
 
 // ─── CONFIG ────────────────────────────────────────────────────────
 const SCENE_URL = "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
-const ROBOT_NAME = "Robot"; // must match your Spline object name exactly
-const LOGO_NAME = "MachinaLogo"; // the logo object inside your Spline scene
+const ROBOT_NAME = "Bot"; // verified from spline.getAllObjects() console log
+const LOGO_NAME = "MachinaLogo"; // not present in the current scene yet — DOM overlay is used as fallback
 // ───────────────────────────────────────────────────────────────────
 
 type RobotState = "idle" | "wave" | "holdLogo";
