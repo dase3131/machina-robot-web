@@ -1,27 +1,85 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring, useMotionValueEvent } from "framer-motion";
+import { useState } from "react";
+import { Magnetic, EASE } from "@/components/motion/Primitives";
+
+const NAV = [
+  { label: "Summit", href: "#summit" },
+  { label: "Agenda", href: "#agenda" },
+  { label: "Speakers", href: "#speakers" },
+  { label: "Partner", href: "#partner" },
+];
 
 export function Header() {
+  const { scrollYProgress, scrollY } = useScroll();
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 220,
+    damping: 40,
+    restDelta: 0.001,
+  });
+  const [condensed, setCondensed] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (v) => setCondensed(v > 40));
+
   return (
-    <motion.header 
-      initial={{ opacity: 0, y: -20 }}
+    <motion.header
+      initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-foreground/10"
+      transition={{ duration: 1, delay: 0.2, ease: EASE }}
+      className="fixed inset-x-0 top-0 z-50"
     >
-      <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-        <span className="font-mono text-sm tracking-widest">MACHINA</span>
-        <nav className="hidden md:flex items-center gap-8">
-          <a href="#about" className="font-mono text-xs tracking-wider hover:opacity-60 transition-opacity">ABOUT</a>
-          <a href="#themes" className="font-mono text-xs tracking-wider hover:opacity-60 transition-opacity">THEMES</a>
-          <a href="#hackathon" className="font-mono text-xs tracking-wider hover:opacity-60 transition-opacity">HACKATHON</a>
-          <a href="#speakers" className="font-mono text-xs tracking-wider hover:opacity-60 transition-opacity">SPEAKERS</a>
-        </nav>
-        <a 
-          href="#register" 
-          className="font-mono text-xs tracking-wider border border-foreground px-4 py-2 hover:bg-foreground hover:text-background transition-all"
-        >
-          REGISTER
-        </a>
+      <div
+        className={`border-b transition-all duration-500 ${
+          condensed
+            ? "border-foreground/10 bg-background/85 backdrop-blur-md"
+            : "border-transparent bg-transparent"
+        }`}
+      >
+        <div className="container-editorial">
+          <div
+            className={`flex items-center justify-between transition-all duration-500 ${
+              condensed ? "py-3" : "py-6"
+            }`}
+          >
+            {/* Wordmark */}
+            <a href="#top" className="group flex items-baseline gap-3">
+              <span className="font-mono text-sm uppercase tracking-[0.3em]">
+                Machina
+              </span>
+              <span className="hidden font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground sm:inline">
+                / Paris 2027
+              </span>
+            </a>
+
+            {/* Nav */}
+            <nav className="hidden items-center gap-10 md:flex">
+              {NAV.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="hover-rule py-1 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+
+            {/* CTA */}
+            <Magnetic strength={0.2}>
+              <a
+                href="#partner"
+                className="border border-foreground px-5 py-2.5 font-mono text-[10px] uppercase tracking-[0.22em] transition-colors duration-300 hover:bg-foreground hover:text-background"
+              >
+                Become a partner
+              </a>
+            </Magnetic>
+          </div>
+        </div>
+
+        {/* Scroll progress hairline */}
+        <motion.div
+          style={{ scaleX: progress }}
+          className="h-px origin-left bg-foreground"
+        />
       </div>
     </motion.header>
   );
