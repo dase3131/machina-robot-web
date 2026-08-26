@@ -1,128 +1,184 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { Reveal, EASE } from "@/components/motion/Primitives";
 
 const themes = [
   {
     number: "01",
-    title: "HUMANOID",
-    description: "Explore the future of bipedal systems and physical AI agents that will reshape human-robot interaction.",
+    title: "Humanoid",
+    description:
+      "Bipedal systems and general-purpose machines moving from demo reels into real deployment.",
     topics: [
       "Next-gen bipedal locomotion",
       "Dexterous manipulation systems",
-      "Human-robot collaboration frameworks",
-      "Embodied intelligence architectures"
-    ]
+      "Human–robot collaboration frameworks",
+      "Embodied intelligence architectures",
+    ],
   },
   {
-    number: "02", 
-    title: "INDUSTRIAL",
-    description: "Automation at scale for manufacturing and logistics, driving the next industrial revolution.",
+    number: "02",
+    title: "Industrial",
+    description:
+      "Automation at scale across manufacturing, logistics, and the physical supply chain.",
     topics: [
       "Factory automation pipelines",
       "Warehouse robotics at scale",
       "Quality control AI systems",
-      "Predictive maintenance"
-    ]
+      "Predictive maintenance",
+    ],
   },
   {
     number: "03",
-    title: "INTEGRATION",
-    description: "Merging foundation models with physical systems to create truly intelligent machines.",
+    title: "Integration",
+    description:
+      "Foundation models meeting hardware — the software layer that makes machines useful.",
     topics: [
       "LLM-powered robotics",
       "Vision-language-action models",
       "Sim-to-real transfer",
-      "Multi-modal perception"
-    ]
+      "Multi-modal perception",
+    ],
   },
   {
     number: "04",
-    title: "ETHICS",
-    description: "Deployment frameworks and responsible development for safe AI-robotics systems.",
+    title: "Capital",
+    description:
+      "How robotics gets funded, priced, and scaled — from seed rounds to industrial rollout.",
+    topics: [
+      "Hardware-heavy venture models",
+      "Unit economics of autonomy",
+      "Strategic corporate investment",
+      "Path to industrial contracts",
+    ],
+  },
+  {
+    number: "05",
+    title: "Deployment",
+    description:
+      "Safety, certification, and the regulatory reality of putting machines into the world.",
     topics: [
       "Safety certification standards",
       "Regulatory landscapes",
       "Liability frameworks",
-      "Workforce transition"
-    ]
-  }
+      "Workforce transition",
+    ],
+  },
 ];
 
 export function ThemesSection() {
-  const [activeTheme, setActiveTheme] = useState(0);
+  const [active, setActive] = useState(0);
+  const theme = themes[active];
 
   return (
-    <section id="themes" className="py-32 border-t border-foreground/10">
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="mb-16"
-        >
-          <p className="font-mono text-xs tracking-[0.3em] mb-4">002 / AGENDA</p>
-          <h2 className="text-4xl md:text-5xl font-bold">Conference Agenda</h2>
-        </motion.div>
+    <section id="agenda" className="relative py-24 md:py-40">
+      <div className="container-editorial">
+        {/* Header */}
+        <div className="mb-14 flex flex-wrap items-baseline justify-between gap-3 border-t border-foreground/15 pt-4 md:mb-20">
+          <Reveal>
+            <p className="label-ink">003 / Agenda</p>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <p className="label">
+              {String(active + 1).padStart(2, "0")} — {String(themes.length).padStart(2, "0")}
+            </p>
+          </Reveal>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-          {/* Left side - Theme titles */}
-          <div className="space-y-2">
-            {themes.map((theme, index) => (
-              <motion.button
-                key={theme.number}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                onClick={() => setActiveTheme(index)}
-                className={`w-full text-left py-4 border-b border-foreground/10 group transition-all duration-300 flex items-baseline gap-4 ${
-                  activeTheme === index ? 'opacity-100' : 'opacity-40 hover:opacity-70'
-                }`}
-              >
-                <span className="font-mono text-xs">/{theme.number}</span>
-                <span 
-                  className={`text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight transition-colors duration-300 ${
-                    activeTheme === index ? 'text-foreground' : 'text-foreground'
-                  }`}
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+          {/* Track list */}
+          <div className="lg:col-span-7">
+            {themes.map((t, i) => {
+              const isActive = active === i;
+              return (
+                <motion.button
+                  key={t.number}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-10%" }}
+                  transition={{ duration: 0.8, delay: i * 0.06, ease: EASE }}
+                  onClick={() => setActive(i)}
+                  onMouseEnter={() => setActive(i)}
+                  className="group block w-full border-t border-foreground/15 py-5 text-left last:border-b md:py-7"
                 >
-                  {theme.title}
-                </span>
-              </motion.button>
-            ))}
+                  <div className="flex items-baseline gap-5 md:gap-8">
+                    <span
+                      className={`font-mono text-[11px] tracking-[0.2em] transition-colors duration-500 ${
+                        isActive ? "text-foreground" : "text-muted-foreground/60"
+                      }`}
+                    >
+                      /{t.number}
+                    </span>
+
+                    <span className="relative overflow-hidden">
+                      <span
+                        className={`display-lg block transition-all duration-500 ${
+                          isActive
+                            ? "translate-x-2 text-foreground"
+                            : "translate-x-0 text-foreground/25 group-hover:text-foreground/50"
+                        }`}
+                      >
+                        {t.title}
+                      </span>
+                    </span>
+
+                    <motion.span
+                      aria-hidden
+                      animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -8 }}
+                      transition={{ duration: 0.4, ease: EASE }}
+                      className="ml-auto font-mono text-sm"
+                    >
+                      →
+                    </motion.span>
+                  </div>
+                </motion.button>
+              );
+            })}
           </div>
 
-          {/* Right side - Description panel */}
-          <div className="lg:pl-8 lg:border-l border-foreground/10 min-h-[400px] flex items-start pt-4">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTheme}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-8"
-              >
-                <p className="text-lg md:text-xl leading-relaxed">
-                  <span className="font-semibold">{themes[activeTheme].description.split(' ').slice(0, 4).join(' ')}</span>
-                  {' '}{themes[activeTheme].description.split(' ').slice(4).join(' ')}
-                </p>
-                
-                <div className="space-y-4">
-                  {themes[activeTheme].topics.map((topic, index) => (
-                    <motion.div
-                      key={topic}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.1 }}
-                      className="py-3 border-b border-foreground/10 font-mono text-sm"
-                    >
-                      {topic}
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </AnimatePresence>
+          {/* Detail panel */}
+          <div className="lg:col-span-5">
+            <div className="lg:sticky lg:top-32">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={active}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.45, ease: EASE }}
+                >
+                  <p className="label mb-6">
+                    Track {theme.number} · {theme.title}
+                  </p>
+
+                  <p className="mb-10 max-w-[36ch] text-xl leading-[1.4] tracking-[-0.01em] md:text-2xl">
+                    {theme.description}
+                  </p>
+
+                  <div>
+                    {theme.topics.map((topic, i) => (
+                      <motion.div
+                        key={topic}
+                        initial={{ opacity: 0, x: -8 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{
+                          duration: 0.5,
+                          delay: 0.1 + i * 0.07,
+                          ease: EASE,
+                        }}
+                        className="flex items-baseline gap-4 border-t border-foreground/15 py-3.5 last:border-b"
+                      >
+                        <span className="font-mono text-[10px] text-muted-foreground">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="font-mono text-[13px] leading-relaxed">
+                          {topic}
+                        </span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       </div>

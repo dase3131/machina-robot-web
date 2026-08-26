@@ -7,6 +7,7 @@ import mistralLogo from "@/assets/logos/mistral.avif";
 import ycombinatorLogo from "@/assets/logos/ycombinator.avif";
 import paloaltoLogo from "@/assets/logos/paloalto.avif";
 import cerebrasLogo from "@/assets/logos/cerebras.svg";
+import { ScrollMarquee, Reveal } from "@/components/motion/Primitives";
 
 const companies = [
   { name: "Cognition", logo: cognitionLogo },
@@ -20,45 +21,41 @@ const companies = [
   { name: "Cerebras", logo: cerebrasLogo },
 ];
 
+function LogoTrack() {
+  return (
+    <div className="flex shrink-0 items-center">
+      {companies.map((company) => (
+        <div
+          key={company.name}
+          className="flex w-[180px] shrink-0 items-center justify-center px-6 md:w-[240px]"
+        >
+          <img
+            src={company.logo}
+            alt={`${company.name} logo`}
+            loading="lazy"
+            className="h-5 w-auto object-contain opacity-45 invert transition-opacity duration-500 hover:opacity-100 md:h-7"
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function CompanyBanner() {
   return (
-    <section className="py-12 md:py-16 overflow-hidden">
-      <div className="container mx-auto px-6 mb-8">
-        <h2 className="font-sans text-xl md:text-2xl lg:text-3xl">
-          Meet the companies who trust <span className="italic opacity-60">RAISE</span>
-        </h2>
+    <section className="border-y border-foreground/15 py-10 md:py-14">
+      <div className="container-editorial mb-8 flex flex-wrap items-baseline justify-between gap-3">
+        <Reveal>
+          <p className="label-ink">The room they already trust</p>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <p className="label">Raise Summit alumni · 2024 – 2026</p>
+        </Reveal>
       </div>
-      
-      <div className="logos-carousel">
-        <div className="logos-container">
-          {/* First set of logos */}
-          <div className="logos-track">
-            {companies.map((company) => (
-              <div key={company.name} className="logos-block">
-                <img
-                  src={company.logo}
-                  alt={`${company.name} logo`}
-                  loading="lazy"
-                  className="h-6 md:h-8 w-auto object-contain invert opacity-80"
-                />
-              </div>
-            ))}
-          </div>
-          {/* Duplicate for seamless loop */}
-          <div className="logos-track">
-            {companies.map((company) => (
-              <div key={`${company.name}-dup`} className="logos-block">
-                <img
-                  src={company.logo}
-                  alt={`${company.name} logo`}
-                  loading="lazy"
-                  className="h-6 md:h-8 w-auto object-contain invert opacity-80"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+
+      <ScrollMarquee baseSpeed={26}>
+        <LogoTrack />
+      </ScrollMarquee>
     </section>
   );
 }
