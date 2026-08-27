@@ -44,7 +44,7 @@ export function TicketsSection() {
     "w-full border-b border-foreground/25 bg-transparent py-3 font-mono text-sm outline-none placeholder:text-muted-foreground focus:border-foreground";
 
   return (
-    <section id="tickets" className="relative py-20 md:py-32">
+    <section id="tickets" className="relative py-16 md:py-24">
       <div className="container-editorial">
         <div className="mb-12 flex flex-wrap items-baseline justify-between gap-3 border-t border-foreground/15 pt-4">
           <p className="label-ink">005 / Tickets &amp; Sponsorship</p>

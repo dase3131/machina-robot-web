@@ -23,7 +23,7 @@
     --secondary-foreground: 220 24% 9%;
 
     --muted: 45 14% 90%;
-    --muted-foreground: 220 10% 42%;
+    --muted-foreground: 220 14% 30%;
 
     /* No colour accent — contrast is the accent. */
     --accent: 45 18% 90%;
@@ -47,7 +47,7 @@
     --sidebar-border: 220 12% 84%;
     --sidebar-ring: 220 24% 9%;
 
-    --grid-color: 220 10% 88%;
+    --grid-color: 220 10% 92%;
   }
 
   .dark {
@@ -62,7 +62,7 @@
     --secondary: 45 18% 92%;
     --secondary-foreground: 220 24% 9%;
     --muted: 45 14% 90%;
-    --muted-foreground: 220 10% 42%;
+    --muted-foreground: 220 14% 30%;
     --accent: 45 18% 90%;
     --accent-foreground: 220 24% 9%;
     --destructive: 0 60% 40%;
@@ -78,7 +78,7 @@
     --sidebar-accent-foreground: 220 24% 9%;
     --sidebar-border: 220 12% 84%;
     --sidebar-ring: 220 24% 9%;
-    --grid-color: 220 10% 88%;
+    --grid-color: 220 10% 92%;
   }
 }
 
@@ -132,11 +132,11 @@
 
   /* Technical label — section numbers, metadata, eyebrows */
   .label {
-    @apply font-mono text-[10px] md:text-[11px] uppercase tracking-[0.28em] text-muted-foreground;
+    @apply font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground;
   }
 
   .label-ink {
-    @apply font-mono text-[10px] md:text-[11px] uppercase tracking-[0.28em] text-foreground;
+    @apply font-mono text-[11px] uppercase tracking-[0.16em] text-foreground;
   }
 
   /* Editorial body copy */
@@ -145,7 +145,7 @@
   }
 
   .body-copy {
-    @apply font-sans text-base leading-[1.65] text-muted-foreground;
+    @apply font-sans text-base leading-[1.6] text-foreground/75;
   }
 
   .section-number {
