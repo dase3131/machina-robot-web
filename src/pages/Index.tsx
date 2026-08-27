@@ -2,11 +2,10 @@ import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { CompanyBanner } from "@/components/CompanyBanner";
 import { AboutSection } from "@/components/AboutSection";
+import { SpeakersCarousel } from "@/components/SpeakersCarousel";
 import { ThemesSection } from "@/components/ThemesSection";
-import { QuoteSection } from "@/components/QuoteSection";
-import { WhyAttendSection } from "@/components/WhyAttendSection";
-import { HallOfFameSection } from "@/components/HallOfFameSection";
-import { ContactFormSection } from "@/components/ContactFormSection";
+import { CxoSummitSection } from "@/components/CxoSummitSection";
+import { TicketsSection } from "@/components/TicketsSection";
 import { FooterSection } from "@/components/FooterSection";
 
 const Index = () => {
@@ -16,11 +15,10 @@ const Index = () => {
       <HeroSection />
       <CompanyBanner />
       <AboutSection />
+      <SpeakersCarousel />
       <ThemesSection />
-      <QuoteSection />
-      <WhyAttendSection />
-      <HallOfFameSection />
-      <ContactFormSection />
+      <CxoSummitSection />
+      <TicketsSection />
       <FooterSection />
     </main>
   );
