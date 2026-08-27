@@ -4,9 +4,10 @@ import { Magnetic, EASE } from "@/components/motion/Primitives";
 
 const NAV = [
   { label: "Summit", href: "#summit" },
-  { label: "Agenda", href: "#agenda" },
   { label: "Speakers", href: "#speakers" },
-  { label: "Partner", href: "#partner" },
+  { label: "Tracks", href: "#agenda" },
+  { label: "CXO", href: "#cxo" },
+  { label: "Tickets", href: "#tickets" },
 ];
 
 export function Header() {
