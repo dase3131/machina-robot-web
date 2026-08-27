@@ -75,7 +75,7 @@ export function ThemesSection() {
         {/* Header */}
         <div className="mb-14 flex flex-wrap items-baseline justify-between gap-3 border-t border-foreground/15 pt-4 md:mb-20">
           <Reveal>
-            <p className="label-ink">003 / Agenda</p>
+            <p className="label-ink">003 / Tracks</p>
           </Reveal>
           <Reveal delay={0.08}>
             <p className="label">
