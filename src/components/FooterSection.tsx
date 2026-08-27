@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export function FooterSection() {
   return (
-    <footer id="register" className="py-32 border-t border-foreground">
+    <footer id="register" className="py-16 md:py-20 border-t border-foreground">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 40 }}

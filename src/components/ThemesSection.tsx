@@ -70,7 +70,7 @@ export function ThemesSection() {
   const theme = themes[active];
 
   return (
-    <section id="agenda" className="relative py-24 md:py-40">
+    <section id="agenda" className="relative py-16 md:py-24">
       <div className="container-editorial">
         {/* Header */}
         <div className="mb-14 flex flex-wrap items-baseline justify-between gap-3 border-t border-foreground/15 pt-4 md:mb-20">
