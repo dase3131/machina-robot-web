@@ -83,7 +83,7 @@ export function MaskedLines({
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-12% 0px -12% 0px" });
   const active = immediate || inView;
-  const Tag = as as keyof JSX.IntrinsicElements;
+  const Tag = as as React.ElementType;
 
   return (
     <Tag ref={ref as never} className={className}>
